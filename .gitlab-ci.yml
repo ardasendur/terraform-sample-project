@@ -87,7 +87,7 @@ before_script:
     only:
       refs:
         - master
-      when: manual
+    when: manual
 
 #### containerized-app-infra ####
 0-validate-containerized-app-infra:
