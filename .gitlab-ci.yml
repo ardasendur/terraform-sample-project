@@ -31,7 +31,7 @@ variables:
   before_script:
     - hadolint --version
   script:
-    - hadolint /containerized-app/Dockerfile
+    - hadolint containerized-app/Dockerfile
   only:
     refs:
         - master
