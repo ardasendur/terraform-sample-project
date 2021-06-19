@@ -4,9 +4,9 @@ COPY /src/requirements.txt /requirements.txt
 
 RUN pip install --user --no-cache-dir -r requirements.txt
 
-# second unnamed stage
+# builder pattern
 FROM python:3.8-slim
-WORKDIR /code
+WORKDIR /containerized-app
 
 # copy only the dependencies installation from the 1st stage image
 COPY --from=builder /root/.local /root/.local

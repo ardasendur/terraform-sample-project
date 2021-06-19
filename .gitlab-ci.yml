@@ -5,12 +5,14 @@ stages:
   - terraform-plan
   - terraform-apply
   - terraform-destroy
-  - k8s-deployment
 
 variables:
     GITLAB_REGISTRY : registry.gitlab.com
     IMAGE_NAME: "app"
     TAG: ${CI_COMMIT_SHA:0:8}
+
+before_script:
+  - source run.sh && chmod +x run.sh
 
 .terraform-base-image: &terraform-base-image
     image:
@@ -25,6 +27,7 @@ variables:
             - master
     when: manual
 
+### Dockerfile lint for containerized app###
 0-dockerfile-check:
   stage: lint
   image: hadolint/hadolint:latest-alpine
@@ -37,6 +40,7 @@ variables:
         - master
   when: manual
 
+### Dockerfile build and push gitlab registry for containerized app ###
 0-docker-build:
     image: docker:latest
     services:
@@ -71,3 +75,64 @@ variables:
         refs:
             - master
     when: manual
+
+### Docker image push to from GITLAB registry to AWS ECR for containerized app###
+2-ecr-publish:
+    image: docker:latest
+    services:
+        - docker:dind
+    stage: publish
+    script:
+      - bash run.sh containerized-app ecr-publish
+    only:
+        refs:
+            - master
+    when:
+
+#### containerized-app-infra ####
+0-validate-containerized-app-infra:
+  stage: terraform-validate
+  <<: *terraform-base-image
+  script:
+    - bash run.sh containerized-app validate
+0-plan-containerized-app-infra:
+    stage: terraform-plan
+    <<: *terraform-base-image
+    script:
+       - bash run.sh containerized-app plan
+
+0-apply-containerized-app-infra:
+    stage: terraform-apply
+    <<: *terraform-base-image
+    script:
+      - bash run.sh containerized-app apply
+
+0-destroy-containerized-app-infra:
+    stage: terraform-destroy
+    <<: *terraform-base-image
+    script:
+      - bash run.sh containerized-app destroy
+
+#### Serverless-app-infra ####
+0-validate-serverless-app-infra:
+  stage: terraform-validate
+  <<: *terraform-base-image
+  script:
+    - bash run.sh serverless-app validate
+0-plan-serverless-app-infra:
+    stage: terraform-plan
+    <<: *terraform-base-image
+    script:
+       - bash run.sh serverless-app plan
+
+0-apply-serverless-app-infra:
+    stage: terraform-apply
+    <<: *terraform-base-image
+    script:
+      - bash run.sh serverless-app apply
+
+0-destroy-serverless-app-infra:
+    stage: terraform-destroy
+    <<: *terraform-base-image
+    script:
+      - bash run.sh serverless-app destroy
