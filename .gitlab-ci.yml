@@ -85,9 +85,9 @@ before_script:
     script:
       - bash run.sh containerized-app ecr-publish
     only:
-        refs:
-            - master
-    when:
+      refs:
+        - master
+      when: manual
 
 #### containerized-app-infra ####
 0-validate-containerized-app-infra:
