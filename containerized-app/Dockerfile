@@ -1,8 +1,8 @@
 FROM python:3.8 as builder
 LABEL maintainer="ardasendur"
-COPY /src/requirements.txt .
+COPY /src/requirements.txt /requirements.txt
 
-RUN pip install --user -r requirements.txt
+RUN pip install --user --no-cache-dir -r requirements.txt
 
 # second unnamed stage
 FROM python:3.8-slim
