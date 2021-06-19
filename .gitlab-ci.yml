@@ -44,6 +44,7 @@ variables:
     stage: publish
     script:
         - echo  "${CI_JOB_STAGE} stage for docker image."
+        - cd containerized-app
         - docker login -u ${CI_REGISTRY_USER} -p $CI_BUILD_TOKEN ${GITLAB_REGISTRY}
         - docker build -t ${GITLAB_REGISTRY}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}/${IMAGE_NAME} .
     only:
@@ -58,6 +59,7 @@ variables:
     stage: publish
     script:
         - echo "${CI_JOB_STAGE} stage for docker image."
+        - cd containerized-app
         - docker login -u ${CI_REGISTRY_USER} -p $CI_BUILD_TOKEN ${GITLAB_REGISTRY}
         - echo "Build the image ${GITLAB_REGISTRY}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}/${IMAGE_NAME} "
         - docker build -t ${GITLAB_REGISTRY}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}/${IMAGE_NAME} .
