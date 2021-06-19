@@ -1,0 +1,71 @@
+stages:
+  - lint
+  - publish
+  - terraform-validate
+  - terraform-plan
+  - terraform-apply
+  - terraform-destroy
+  - k8s-deployment
+
+variables:
+    GITLAB_REGISTRY : registry.gitlab.com
+    IMAGE_NAME: "app"
+    TAG: ${CI_COMMIT_SHA:0:8}
+
+.terraform-base-image: &terraform-base-image
+    image:
+        name: hashicorp/terraform:0.14.9
+        entrypoint:
+            - '/usr/bin/env'
+            - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    services:
+        - docker:dind
+    only:
+        refs:
+            - master
+    when: manual
+
+0-dockerfile-check:
+  stage: lint
+  image: hadolint/hadolint:latest-alpine
+  before_script:
+    - hadolint --version
+  script:
+    - hadolint /containerized-app/Dockerfile
+  only:
+    refs:
+        - master
+  when: manual
+
+0-docker-build:
+    image: docker:latest
+    services:
+        - docker:dind
+    stage: publish
+    script:
+        - echo  "${CI_JOB_STAGE} stage for docker image."
+        - docker login -u ${CI_REGISTRY_USER} -p $CI_BUILD_TOKEN ${GITLAB_REGISTRY}
+        - docker build -t ${GITLAB_REGISTRY}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}/${IMAGE_NAME} .
+    only:
+        refs:
+            - master
+    when: manual
+
+1-docker-publish:
+    image: docker:latest
+    services:
+        - docker:dind
+    stage: publish
+    script:
+        - echo "${CI_JOB_STAGE} stage for docker image."
+        - docker login -u ${CI_REGISTRY_USER} -p $CI_BUILD_TOKEN ${GITLAB_REGISTRY}
+        - echo "Build the image ${GITLAB_REGISTRY}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}/${IMAGE_NAME} "
+        - docker build -t ${GITLAB_REGISTRY}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}/${IMAGE_NAME} .
+        - echo "Tagging image with name ${CI_COMMIT_SHA:0:8}"
+        - docker tag ${GITLAB_REGISTRY}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}/${IMAGE_NAME} ${GITLAB_REGISTRY}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}/${IMAGE_NAME}:${CI_COMMIT_SHA:0:8}
+        - echo "Push image gitlab container registry."
+        - docker push ${GITLAB_REGISTRY}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}/${IMAGE_NAME}:${CI_COMMIT_SHA:0:8}
+    only:
+        refs:
+            - master
+    when: manual
