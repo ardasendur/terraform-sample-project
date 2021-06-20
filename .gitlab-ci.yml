@@ -1,3 +1,4 @@
+image: ubuntu:latest
 stages:
   - lint
   - publish
