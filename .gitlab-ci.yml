@@ -12,7 +12,7 @@ variables:
     TAG: ${CI_COMMIT_SHA:0:8}
 
 before_script:
-  - source run.sh && chmod +x run.sh
+  - source ./run.sh && chmod +x ./run.sh
   - bash run.sh
 
 .terraform-base-image: &terraform-base-image
