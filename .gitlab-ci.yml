@@ -13,6 +13,7 @@ variables:
 
 before_script:
   - source run.sh && chmod +x run.sh
+  - bash run.sh
 
 .terraform-base-image: &terraform-base-image
     image:
