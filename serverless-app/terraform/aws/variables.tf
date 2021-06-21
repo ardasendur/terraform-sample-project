@@ -8,7 +8,7 @@ variable "bucket_name" {
 }
 
 variable "lambda_handler" {
-  default = "lambda_handler"
+  default = "csv_loader.lambda_handler"
 }
 variable "function_name" {
   default = ""

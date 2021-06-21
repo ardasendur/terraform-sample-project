@@ -18,14 +18,12 @@ logger(){
 }
 
 push_docker_image_to_ecr(){
-
   echo test
 
 }
 
 terraform_validate(){
-   terraform init
-   terraform validete
+   terraform validate
 }
 terraform_plan(){
   logger "INFO terraform plan is starting"
@@ -53,7 +51,7 @@ main(){
     if [[ "$1"  == "serverless-app" ]] ; then export PROJECT_PATH="serverless-app";elif [[ "$1"  == "containerized-app" ]] ; then export PROJECT_PATH="containerized-app" ;else exit 1 ; fi
     cd $PROJECT_PATH/$TERRAFORM_PATH/
 
-    if [ "$2" == "validete" ]; then
+    if [ "$2" == "validate" ]; then
         terraform_plan
 
     elif [ "$2" == "plan" ]; then

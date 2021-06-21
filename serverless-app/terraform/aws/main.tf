@@ -6,6 +6,7 @@ provider "aws" {
   skip_requesting_account_id  = true
   skip_metadata_api_check     = true
   s3_force_path_style         = true
+  skip_get_ec2_platforms      = true
   access_key                  = "test"
   secret_key                  = "test"
    endpoints {
@@ -50,8 +51,7 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
   lambda_function {
     lambda_function_arn = module.lambda_function.lambda_function_arn
     events              = ["s3:ObjectCreated:*"]
-    filter_prefix       = "AWSLogs/"
-    filter_suffix       = ".log"
+    filter_suffix       = ".csv"
   }
 
   depends_on = [module.lambda_function]
@@ -62,11 +62,29 @@ module "dynamodb_table" {
   source   = "terraform-aws-modules/dynamodb-table/aws"
   name     = var.dynamodb_name
   hash_key = "id"
+  range_key = "csv_file_name"
 
   attributes = [
     {
       name = "id"
-      type = "N"
+      type = "S"
+    },
+    {
+      name = "csv_file_name"
+      type = "S"
+    },
+    {
+      name = "csv_file_content"
+      type = "S"
+    }
+  ]
+    global_secondary_indexes = [
+    {
+      name               = "CSVIndex"
+      hash_key           = "csv_file_name"
+      range_key          = "csv_file_content"
+      projection_type    = "INCLUDE"
+      non_key_attributes = ["id"]
     }
   ]
 }
