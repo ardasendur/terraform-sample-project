@@ -1,4 +1,4 @@
-image: ubuntu:latest
+image: alpine:latest
 stages:
   - lint
   - publish
@@ -98,7 +98,7 @@ before_script:
   stage: terraform-validate
   <<: *terraform-base-image
   script:
-    - usr/bin/bash run.sh containerized-app validate
+    - bash run.sh containerized-app validate
 0-plan-containerized-app-infra:
   stage: terraform-plan
   <<: *terraform-base-image
