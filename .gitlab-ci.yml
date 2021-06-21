@@ -13,8 +13,9 @@ variables:
     TAG: ${CI_COMMIT_SHA:0:8}
 
 before_script:
-  - source ./run.sh && chmod +x ./run.sh
-  - bash run.sh
+  - echo "test"
+  - chmod +x run.sh
+  - echo "done"
 
 .terraform-base-image: &terraform-base-image
     image:
@@ -98,10 +99,10 @@ before_script:
   script:
     - bash run.sh containerized-app validate
 0-plan-containerized-app-infra:
-    stage: terraform-plan
-    <<: *terraform-base-image
-    script:
-       - bash run.sh containerized-app plan
+  stage: terraform-plan
+  <<: *terraform-base-image
+  script:
+      - bash run.sh containerized-app plan
 
 0-apply-containerized-app-infra:
     stage: terraform-apply
