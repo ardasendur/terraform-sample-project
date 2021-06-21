@@ -15,6 +15,7 @@ variables:
 before_script:
   - echo "test"
   - chmod +x run.sh
+  - echo $PATH
   - echo "done"
 
 .terraform-base-image: &terraform-base-image
@@ -97,7 +98,7 @@ before_script:
   stage: terraform-validate
   <<: *terraform-base-image
   script:
-    - bash run.sh containerized-app validate
+    - /bin/bash run.sh containerized-app validate
 0-plan-containerized-app-infra:
   stage: terraform-plan
   <<: *terraform-base-image
@@ -121,7 +122,7 @@ before_script:
   stage: terraform-validate
   <<: *terraform-base-image
   script:
-    - bash run.sh serverless-app validate
+    - /bin/bash run.sh serverless-app validate
 0-plan-serverless-app-infra:
     stage: terraform-plan
     <<: *terraform-base-image
