@@ -3,10 +3,13 @@
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
 This repository composed of two main folder which are mapping each tasks such as containerizad-app and serverless-app.
+Serverless-app include dummy AWS credentials, you can easliy test it locally. Terraform validate and plan is also sutiable for this project. However, terraform apply and destroy no need.
+
+ ## IMPORTANT NOTE
+  ECR repository does not exist at the beginig of project. If you want to push your image in AWS ECR, you should run containerized-app terraform code which will create ECR and ECS cluster. ECR name is "containerized-app", after sucessfully creation of terraform apply, you can run "2-ecr-publish" job.
 
 ## Tech
-
-This repositoryis using different technology work properly:
+This repository is using different technology work properly:
 
 - ✨Terraform
 - ✨Docker
@@ -16,7 +19,7 @@ This repositoryis using different technology work properly:
  
 ## Installation
 
-For installition part CI/CD image is using correct image for environment. Images are alpine,terraform,hadolint,docker and awscli. To run pipeline correctly please define environment variables.
+For installation part of CI/CD image is using stage related(which means terraform job is using hashicorp/terraform:1.0.0) image for environment. Images are alpine,terraform,hadolint,docker and awscli with some customized solution and work-around. To run pipeline correctly please define environment variables.
 
 For production environments variables...
 
@@ -44,6 +47,8 @@ For serverless app , it offers local test environment. Below described steps sho
 - ✨Terraform = v1.0.0
 - ✨Docker   = 19.03.13
 - ✨AWS CLI =   aws-cli/2.0.54 
+- ✨LocalStack 
+
 
 Before run script AWS_SECRET_ACCESS_KEY, AWS_ACCESS_KEY_ID and AWS_REGION should be defined.
 ```sh
