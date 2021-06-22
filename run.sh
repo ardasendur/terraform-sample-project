@@ -23,6 +23,7 @@ push_docker_image_to_ecr(){
 }
 
 terraform_validate(){
+   echo  "function is starting"
    terraform init
    terraform validate
 }
@@ -60,6 +61,7 @@ main(){
         echo "validate starting"
         terraform init
         terraform validate
+        terraform_validate
 
     elif [ "$2" == "plan" ]; then
         terraform_plan
