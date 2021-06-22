@@ -45,6 +45,18 @@ For serverless app , it offers local test environment. Below described steps sho
 - ✨Docker   = 19.03.13
 - ✨AWS CLI =   aws-cli/2.0.54 
 
+Before run script AWS_SECRET_ACCESS_KEY, AWS_ACCESS_KEY_ID and AWS_REGION should be defined.
+```sh
+export AWS_SECRET_ACCESS_KEY="test"
+export AWS_ACCESS_KEY_ID="test"
+export AWS_DEFAULT_REGION= "us-east-1"
+```
+Alternatively, AWS_SECRET_ACCESS_KEY="test", AWS_ACCESS_KEY_ID="test" and AWS_DEFAULT_REGION= "us-east-1" should be defined with these values inside below comment.
+
+```sh
+aws configure
+```
+
 ```sh
 git clone git@gitlab.com:ardasendur/assignment.git
 cd /serverless-app/terraform/aws/test
