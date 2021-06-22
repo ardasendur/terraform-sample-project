@@ -47,8 +47,9 @@ terraform_destroy(){
 }
 
 main(){
-
-    if [[ "$1"  == "serverless-app" ]] ; then export PROJECT_PATH="serverless-app";elif [[ "$1"  == "containerized-app" ]] ; then export PROJECT_PATH="containerized-app" ;else exit 1 ; fi
+    echo $1
+    if [[ "$1"  == "serverless-app" ]] ; then export PROJECT_PATH="serverless-app";elif [[ "$1"  == "containerized-app" ]] ; then export PROJECT_PATH="containerized-app" ;else echo false ; fi
+    echo $PROJECT_PATH
     cd $PROJECT_PATH/$TERRAFORM_PATH/
 
     if [ "$2" == "validate" ]; then
@@ -68,4 +69,6 @@ main(){
     fi
 }
  echo "test"
+ echo $1
+ echo $2
  main "$@"
