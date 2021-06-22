@@ -95,7 +95,6 @@ before_script:
   script:
     - docker login -u ${CI_REGISTRY_USER} -p $CI_BUILD_TOKEN ${GITLAB_REGISTRY}
     - docker pull ${GITLAB_REGISTRY}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}/${IMAGE_NAME}:${CI_COMMIT_SHA:0:8}
-    #- export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --output text ---query Account 2>/dev/null)
     - export ECR_URL="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
     - export ECR_REPO_NAME=$TF_VAR_ecr_name
     - export ECR_PATH="$ECR_URL/$ECR_REPO_NAME"
