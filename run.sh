@@ -56,5 +56,4 @@ main(){
         terraform_graph
     fi
 }
- echo "test"
  main "$@"
