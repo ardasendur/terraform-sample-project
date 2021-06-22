@@ -21,7 +21,7 @@ before_script:
 
 .terraform-base-image: &terraform-base-image
     image:
-        name: hashicorp/terraform:0.14.9
+        name: hashicorp/terraform:1.0.0
         entrypoint:
             - '/usr/bin/env'
             - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
