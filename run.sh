@@ -23,6 +23,7 @@ push_docker_image_to_ecr(){
 }
 
 terraform_validate(){
+   terraform init
    terraform validate
 }
 terraform_plan(){
@@ -54,6 +55,7 @@ main(){
     cd $PROJECT_PATH/$TERRAFORM_PATH/
     pwd
     ls -altrh
+    terraform init
     terraform validate
 
     if [ "$2" == "validate" ]; then
