@@ -128,7 +128,7 @@ before_script:
     stage: terraform-plan
     <<: *terraform-base-image
     script:
-       - uname -ar
+       - apk add --no-cache python3 py3-pip
        - bash run.sh serverless-app plan
 
 0-apply-serverless-app-infra:
