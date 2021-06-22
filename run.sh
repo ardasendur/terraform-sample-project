@@ -23,16 +23,12 @@ push_docker_image_to_ecr(){
 }
 
 terraform_validate(){
-   echo  "function is starting"
    terraform init
    terraform validate
-   logger "INFO done"
-
 }
 terraform_plan(){
-  logger "INFO terraform plan is starting"
-  #terraform init
-  #terraform plan -var-file=app.tfvars
+  terraform init
+  terraform plan -var-file=app.tfvars
 }
 terraform_graph(){
 
