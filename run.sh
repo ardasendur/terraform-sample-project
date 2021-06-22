@@ -26,6 +26,8 @@ terraform_validate(){
    echo  "function is starting"
    terraform init
    terraform validate
+   logger "INFO done"
+
 }
 terraform_plan(){
   logger "INFO terraform plan is starting"
@@ -49,18 +51,13 @@ terraform_destroy(){
 }
 
 main(){
-    echo $1
-    echo $2
+
     if [[ "$1"  == "serverless-app" ]] ; then export PROJECT_PATH="serverless-app";elif [[ "$1"  == "containerized-app" ]] ; then export PROJECT_PATH="containerized-app" ;else echo false ; fi
     echo "Project path: $PROJECT_PATH"
     cd $PROJECT_PATH/$TERRAFORM_PATH/
-    pwd
-    ls -altrh
 
     if [ "$2" == "validate" ]; then
         echo "validate starting"
-        terraform init
-        terraform validate
         terraform_validate
 
     elif [ "$2" == "plan" ]; then
