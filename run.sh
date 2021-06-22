@@ -7,7 +7,6 @@ TERRAFORM_PATH="terraform/aws"
 
 push_docker_image_to_ecr(){
   echo test
-
 }
 
 terraform_validate(){
