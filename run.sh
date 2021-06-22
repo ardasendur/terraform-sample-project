@@ -5,18 +5,6 @@
 AUTO_APPROVE="-auto-approve"
 TERRAFORM_PATH="terraform/aws"
 
-
-logger(){
-    type_of_msg=$(echo $*|cut -d" " -f1)
-    msg=$(echo "$*"|cut -d" " -f2-)
-    [[ $type_of_msg == DEBUG ]] && [[ $do_print_debug_msgs -ne 1 ]] && return
-    [[ $type_of_msg == INFO ]] && type_of_msg="INFO " # one space for aligning
-    [[ $type_of_msg == WARN ]] && type_of_msg="WARN " # as well
-
-    # print to the terminal if we have one
-    test -t 1 && echo " [$type_of_msg] `date "+%Y.%m.%d-%H:%M:%S %Z"` ""$msg"
-}
-
 push_docker_image_to_ecr(){
   echo test
 
@@ -49,7 +37,7 @@ terraform_destroy(){
 main(){
 
     if [[ "$1"  == "serverless-app" ]] ; then export PROJECT_PATH="serverless-app";elif [[ "$1"  == "containerized-app" ]] ; then export PROJECT_PATH="containerized-app" ;else echo false ; fi
-    echo "Project path: $PROJECT_PATH"
+    echo "Navigated Project Path: $PROJECT_PATH"
     cd $PROJECT_PATH/$TERRAFORM_PATH/
 
     if [ "$2" == "validate" ]; then

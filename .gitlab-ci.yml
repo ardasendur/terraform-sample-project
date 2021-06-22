@@ -13,12 +13,7 @@ variables:
     TAG: ${CI_COMMIT_SHA:0:8}
 
 before_script:
-  - echo "test"
   - chmod +x run.sh
-  - apk update && apk add bash
-  - echo $PATH
-  - echo "done"
-
 .terraform-base-image: &terraform-base-image
     image:
         name: hashicorp/terraform:1.0.0
