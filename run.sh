@@ -48,9 +48,12 @@ terraform_destroy(){
 
 main(){
     echo $1
+    echo $2
     if [[ "$1"  == "serverless-app" ]] ; then export PROJECT_PATH="serverless-app";elif [[ "$1"  == "containerized-app" ]] ; then export PROJECT_PATH="containerized-app" ;else echo false ; fi
-    echo $PROJECT_PATH
+    echo "Project path: $PROJECT_PATH"
     cd $PROJECT_PATH/$TERRAFORM_PATH/
+    pwd
+    ls -altrh
 
     if [ "$2" == "validate" ]; then
         terraform_plan
@@ -69,6 +72,4 @@ main(){
     fi
 }
  echo "test"
- echo $1
- echo $2
  main "$@"
