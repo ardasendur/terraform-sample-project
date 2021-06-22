@@ -54,6 +54,7 @@ main(){
     cd $PROJECT_PATH/$TERRAFORM_PATH/
     pwd
     ls -altrh
+    terraform validate
 
     if [ "$2" == "validate" ]; then
         terraform_plan
