@@ -99,7 +99,7 @@ before_script:
     - export ECR_URL="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
     - export ECR_REPO_NAME=$TF_VAR_ecr_name
     - export ECR_PATH="$ECR_URL/$ECR_REPO_NAME"
-    - aws ecr get-login-password | docker login --username AWS --password-stdin $ECR_URL
+    - aws ecr get-login-password ${AWS_DEFAULT_REGION}| docker login --username AWS --password-stdin $ECR_URL
     - docker tag ${GITLAB_REGISTRY}/${GITLAB_USER_LOGIN}/${CI_PROJECT_NAME}/${IMAGE_NAME}:${CI_COMMIT_SHA:0:8} ${ECR_PATH}:${CI_COMMIT_SHA:0:8}
     - docker push ${ECR_PATH}:${CI_COMMIT_SHA:0:8}
   only:
