@@ -128,6 +128,7 @@ before_script:
     stage: terraform-plan
     <<: *terraform-base-image
     script:
+       - uname -ar
        - bash run.sh serverless-app plan
 
 0-apply-serverless-app-infra:
