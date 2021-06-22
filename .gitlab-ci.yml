@@ -15,6 +15,7 @@ variables:
 before_script:
   - echo "test"
   - chmod +x run.sh
+  - apk update && apk add bash
   - echo $PATH
   - echo "done"
 
