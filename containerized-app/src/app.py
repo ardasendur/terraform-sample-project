@@ -14,15 +14,15 @@ def index():
 
 @app.route("/factorial/<number>")
 def factorial(number):
-    if int(number) == 0:
-        result: int = 1
-    elif int(number) < 0:
-        result = "No valid input"
-    else:
+    if int(number) >= 0:
         result = math.factorial(int(number))
+        status = 200
+    else:
+        result = "No valid input"
+        status = 400
     return jsonify(
-        result=str(result),
-        status=200
+        result = str(result),
+        status = status
     )
 
 
