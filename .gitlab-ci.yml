@@ -83,8 +83,7 @@ before_script:
 2-ecr-publish:
   image:
     name: amazon/aws-cli
-    entrypoint:
-      - [""]
+    entrypoint: [""]
   services:
     - docker:dind
   stage: publish
