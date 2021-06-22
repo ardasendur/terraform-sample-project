@@ -55,11 +55,11 @@ main(){
     cd $PROJECT_PATH/$TERRAFORM_PATH/
     pwd
     ls -altrh
-    terraform init
-    terraform validate
 
     if [ "$2" == "validate" ]; then
-        terraform_plan
+        echo "validate starting"
+        terraform init
+        terraform validate
 
     elif [ "$2" == "plan" ]; then
         terraform_plan
