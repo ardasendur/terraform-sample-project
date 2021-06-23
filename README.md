@@ -1,9 +1,8 @@
 # Containerized and Serverless App
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
-
-This repository composed of two main folder which are mapping each tasks such as containerizad-app and serverless-app.
+  This repository composed of two main folder which are mapping each tasks such as containerizad-app and serverless-app.
 Serverless-app include dummy AWS credentials, you can easliy test it locally. Terraform validate and plan is also sutiable for this project. However, terraform apply and destroy no need.
+  Containerized app is deploying ECS. ECS offers two opportunities EC2 and Fargate. I applied ECS Fargate which is serverless.
 
  ## IMPORTANT NOTE
   ECR repository does not exist at the beginig of project. If you want to push your image in AWS ECR, you should run containerized-app terraform code which will create ECR and ECS cluster. ECR name is "containerized-app", after sucessfully creation of terraform apply, you can run "2-ecr-publish" job.
@@ -65,7 +64,7 @@ aws configure
 ```sh
 git clone git@gitlab.com:ardasendur/assignment.git
 cd /serverless-app/terraform/aws/test
-bash test.sh <PATH_OF_CSV_FILE>
+bash test.sh <ABSOLUTE_PATH_OF_CSV_FILE>
 cd test_output
 ```
 ## DIAGRAM
