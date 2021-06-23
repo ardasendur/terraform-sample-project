@@ -3,6 +3,7 @@
   This repository composed of two main folder which are mapping each tasks such as containerizad-app and serverless-app.
 Serverless-app include dummy AWS credentials, you can easliy test it locally. Terraform validate and plan is also sutiable for this project. However, terraform apply and destroy no need.
   Containerized app is deploying ECS. ECS offers two opportunities EC2 and Fargate. I applied ECS Fargate which is serverless.
+  Serverless app is using terraform related modules S3,Lambda and DynamoDB. S3 trigger lambda by using "aws_s3_bucket_notification". Aws provider is using localstack endpoints which is "http://localhost:4566".
 
  ## IMPORTANT NOTE
   ECR repository does not exist at the beginig of project. If you want to push your image in AWS ECR, you should run containerized-app terraform code which will create ECR and ECS cluster. ECR name is "containerized-app", after sucessfully creation of terraform apply, you can run "2-ecr-publish" job.
@@ -67,6 +68,9 @@ cd /serverless-app/terraform/aws/test
 bash test.sh <ABSOLUTE_PATH_OF_CSV_FILE>
 cd test_output
 ```
+ ##  NOTE
+  After runnig test.sh script, clean_up_env() method is calling which is killing localstack container, removing .terraform and terraform.tfstate.
+
 ## DIAGRAM
 
 - ✨CI/CD Pipeline
