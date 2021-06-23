@@ -68,3 +68,17 @@ cd /serverless-app/terraform/aws/test
 bash test.sh <PATH_OF_CSV_FILE>
 cd test_output
 ```
+## DIAGRAM
+
+- ✨CI/CD pipeline
+
+![picture](pipeline.png/)
+
+- ✨Containerized-APP
+
+![picture](containerized-app/containerized-app.png)
+
+- Serverless-APP
+
+![picture](serverless-app/serverless-app.png/)
+
