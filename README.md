@@ -70,7 +70,7 @@ cd test_output
 ```
 ## DIAGRAM
 
-- ✨CI/CD pipeline
+- ✨CI/CD Pipeline
 
 ![picture](pipeline.png/)
 
@@ -78,7 +78,7 @@ cd test_output
 
 ![picture](containerized-app/containerized-app.png)
 
-- Serverless-APP
+- ✨Serverless-APP
 
 ![picture](serverless-app/serverless-app.png/)
 
